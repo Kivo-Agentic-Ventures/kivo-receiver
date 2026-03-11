@@ -804,14 +804,14 @@
     padding: var(--space-4);
     box-shadow: var(--shadow-xs);
     transition: box-shadow .2s var(--ease-out), transform .2s var(--ease-out), border-color .15s;
-    cursor: default;
+    cursor: pointer;
     position: relative;
   }
 
   .venture-card:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-1px);
-    border-color: var(--color-gray-300);
+    border-color: var(--color-indigo-400);
   }
 
   .venture-card-top {
@@ -952,6 +952,226 @@
   }
 
   .footer-text a { color: var(--color-indigo-600); text-decoration: none; }
+
+  /* ── VENTURE DETAIL MODAL ────────────────────────────────────── */
+  .venture-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    opacity: 0;
+    transition: opacity .2s var(--ease-out);
+  }
+
+  .venture-modal-backdrop.visible { opacity: 1; }
+
+  .venture-modal-panel {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 560px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(8px) scale(0.98);
+    transition: transform .2s var(--ease-out);
+  }
+
+  .venture-modal-backdrop.visible .venture-modal-panel {
+    transform: translateY(0) scale(1);
+  }
+
+  .venture-modal-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    color: var(--color-gray-500);
+    transition: background .15s, color .15s;
+  }
+
+  .venture-modal-close:hover {
+    background: var(--color-gray-100);
+    color: var(--color-gray-900);
+  }
+
+  .venture-modal-close svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  .venture-modal-header {
+    padding: var(--space-6) var(--space-6) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    padding-right: var(--space-12);
+  }
+
+  .venture-modal-name {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-gray-900);
+    letter-spacing: -0.02em;
+  }
+
+  .venture-modal-body {
+    padding: var(--space-4) var(--space-6) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .venture-modal-section-label {
+    font-family: 'Inter', monospace;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--color-gray-400);
+    margin-bottom: var(--space-1);
+  }
+
+  .venture-modal-tagline {
+    font-size: var(--text-md);
+    color: var(--color-gray-600);
+    line-height: 1.5;
+  }
+
+  .venture-modal-text {
+    font-size: var(--text-base);
+    color: var(--color-gray-600);
+    line-height: 1.6;
+  }
+
+  .venture-modal-audience-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--text-base);
+    color: var(--color-gray-600);
+  }
+
+  .venture-modal-audience-row svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--color-gray-400);
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+
+  /* Metrics grid */
+  .venture-modal-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+
+  .venture-modal-metric {
+    background: var(--color-gray-50);
+    border: 1px solid var(--color-gray-100);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .venture-modal-metric-label {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    color: var(--color-gray-400);
+    margin-bottom: 2px;
+  }
+
+  .venture-modal-metric-value {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-gray-900);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .venture-modal-conversion {
+    font-size: var(--text-sm);
+    color: var(--color-gray-500);
+    text-align: right;
+    margin-top: calc(-1 * var(--space-1));
+  }
+
+  /* Link buttons */
+  .venture-modal-links {
+    display: flex;
+    gap: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-gray-100);
+  }
+
+  .venture-modal-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-indigo-600);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 99px;
+    border: 1px solid var(--color-indigo-100);
+    background: var(--color-indigo-50);
+    transition: background .15s, border-color .15s;
+  }
+
+  .venture-modal-link:hover {
+    background: var(--color-indigo-100);
+    border-color: var(--color-indigo-400);
+  }
+
+  .venture-modal-link svg {
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  .venture-modal-link-disabled {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-gray-400);
+    padding: 6px 14px;
+    border-radius: 99px;
+    border: 1px solid var(--color-gray-200);
+    background: transparent;
+    cursor: not-allowed;
+  }
+
+  .venture-modal-link-disabled svg {
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  /* Scroll lock */
+  body.modal-open { overflow: hidden; }
 
   /* ── UTILITY ─────────────────────────────────────────────────── */
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
@@ -1360,73 +1580,113 @@ const ventures = [
     stage: "research",
     name: "PixelHire",
     tagline: "The niche job board for indie game developers and studios",
+    valueProp: "Curated marketplace connecting indie studios with contract developers, artists, and composers. Built-in escrow payments, portfolio showcases, and skill-based matching reduce hiring friction for small teams that can't compete on traditional platforms.",
     score: 78,
     audience: "Indie game studios & freelance devs",
     siteUrl: null,
-    repoUrl: null
+    repoUrl: null,
+    totalRevenue: 0,
+    monthlyRevenue: 0,
+    visitors: 0,
+    conversions: 0
   },
   {
     stage: "research",
     name: "StackPulse",
     tagline: "Advanced analytics and subscriber insights for Substack writers",
+    valueProp: "Deep engagement analytics beyond what Substack provides: read depth tracking, click heatmaps, subscriber cohort analysis, and churn prediction. Helps writers understand what content resonates and retain paying subscribers.",
     score: 74,
     audience: "Substack newsletter creators",
     siteUrl: null,
-    repoUrl: null
+    repoUrl: null,
+    totalRevenue: 0,
+    monthlyRevenue: 0,
+    visitors: 0,
+    conversions: 0
   },
   {
     stage: "research",
     name: "RefundBot",
     tagline: "Automated refund decision engine for Shopify merchants",
+    valueProp: "Configurable policy engine that automates refund decisions for Shopify stores. Reduces support ticket volume by 60% while maintaining customer satisfaction through consistent, fair policy enforcement.",
     score: 68,
     audience: "Shopify store owners with high return volume",
     siteUrl: null,
-    repoUrl: null
+    repoUrl: null,
+    totalRevenue: 0,
+    monthlyRevenue: 0,
+    visitors: 0,
+    conversions: 0
   },
   {
     stage: "build",
     name: "BriefForge",
     tagline: "AI-generated content briefs from a single keyword — in seconds",
+    valueProp: "Paste a keyword and receive a full content brief: competitor analysis, heading structure, word count targets, internal linking opportunities, and FAQ sections — ready to hand to a writer or feed into your content pipeline.",
     score: 87,
     audience: "Content marketers, SEO teams, and agencies",
     siteUrl: null,
-    repoUrl: "https://github.com/kivo-ventures/briefforge"
+    repoUrl: "https://github.com/kivo-ventures/briefforge",
+    totalRevenue: 0,
+    monthlyRevenue: 0,
+    visitors: 0,
+    conversions: 0
   },
   {
     stage: "build",
     name: "LegalPilot",
     tagline: "Plain-English contract analysis for independent professionals",
+    valueProp: "Upload any contract and get plain-language summaries, red flag identification, and negotiation suggestions in under 60 seconds. Built specifically for freelancers and consultants who can't afford a lawyer for every agreement.",
     score: 91,
     audience: "Freelancers, consultants, and solo operators",
     siteUrl: null,
-    repoUrl: "https://github.com/kivo-ventures/legalpilot"
+    repoUrl: "https://github.com/kivo-ventures/legalpilot",
+    totalRevenue: 0,
+    monthlyRevenue: 0,
+    visitors: 0,
+    conversions: 0
   },
   {
     stage: "deploy",
     name: "BriefForge",
     tagline: "AI-generated content briefs from a single keyword — in seconds",
+    valueProp: "Paste a keyword and receive a full content brief: competitor analysis, heading structure, word count targets, internal linking opportunities, and FAQ sections — ready to hand to a writer or feed into your content pipeline.",
     score: 87,
     audience: "Content marketers and SEO agencies",
     siteUrl: "https://briefforge.withkivo.com",
-    repoUrl: "https://github.com/kivo-ventures/briefforge"
+    repoUrl: "https://github.com/kivo-ventures/briefforge",
+    totalRevenue: 1240,
+    monthlyRevenue: 420,
+    visitors: 3800,
+    conversions: 62
   },
   {
     stage: "marketing",
     name: "LegalPilot",
     tagline: "Plain-English contract analysis for independent professionals",
+    valueProp: "Upload any contract and get plain-language summaries, red flag identification, and negotiation suggestions in under 60 seconds. Built specifically for freelancers and consultants who can't afford a lawyer for every agreement.",
     score: 91,
     audience: "Freelancers, consultants, and solo operators",
     siteUrl: "https://legalpilot.withkivo.com",
-    repoUrl: "https://github.com/kivo-ventures/legalpilot"
+    repoUrl: "https://github.com/kivo-ventures/legalpilot",
+    totalRevenue: 8940,
+    monthlyRevenue: 2180,
+    visitors: 12400,
+    conversions: 347
   },
   {
     stage: "complete",
     name: "BriefForge",
     tagline: "AI-generated content briefs from a single keyword — in seconds",
+    valueProp: "Paste a keyword and receive a full content brief: competitor analysis, heading structure, word count targets, internal linking opportunities, and FAQ sections — ready to hand to a writer or feed into your content pipeline.",
     score: 87,
     audience: "Content marketers, SEO teams, and agencies",
     siteUrl: "https://briefforge.withkivo.com",
-    repoUrl: "https://github.com/kivo-ventures/briefforge"
+    repoUrl: "https://github.com/kivo-ventures/briefforge",
+    totalRevenue: 24600,
+    monthlyRevenue: 4100,
+    visitors: 28500,
+    conversions: 1120
   }
 ];
 
@@ -1566,8 +1826,9 @@ function renderBoard() {
                 No repo
               </span>`;
 
+          const ventureIdx = ventures.indexOf(v);
           return `
-            <div class="venture-card">
+            <div class="venture-card" onclick="openVentureModal(${ventureIdx})" role="button" tabindex="0">
               <div class="venture-card-top">
                 <div class="venture-name">${v.name}</div>
                 <span class="score-badge ${sc}">${v.score}</span>
@@ -1595,6 +1856,140 @@ function renderBoard() {
       </div>`;
   }).join("");
 }
+
+/* ── VENTURE DETAIL MODAL ─────────────────────────────────────── */
+
+function formatCurrency(amount) {
+  if (!amount) return "—";
+  return "$" + amount.toLocaleString("en-US");
+}
+
+function formatNumber(num) {
+  if (!num) return "—";
+  return num.toLocaleString("en-US");
+}
+
+function openVentureModal(ventureIdx) {
+  const v = ventures[ventureIdx];
+  if (!v) return;
+
+  const cfg = stageConfig[v.stage];
+  const sc = scoreClass(v.score);
+  const conversionRate = v.visitors > 0
+    ? ((v.conversions / v.visitors) * 100).toFixed(1) + "%"
+    : "—";
+
+  const siteBtn = v.siteUrl
+    ? `<a class="venture-modal-link" href="${v.siteUrl}" target="_blank" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Visit Site
+      </a>`
+    : `<span class="venture-modal-link-disabled">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Not deployed
+      </span>`;
+
+  const repoBtn = v.repoUrl
+    ? `<a class="venture-modal-link" href="${v.repoUrl}" target="_blank" onclick="event.stopPropagation()">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        View Repo
+      </a>`
+    : `<span class="venture-modal-link-disabled">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        No repo
+      </span>`;
+
+  const backdrop = document.createElement("div");
+  backdrop.className = "venture-modal-backdrop";
+  backdrop.id = "venture-modal";
+  backdrop.innerHTML = `
+    <div class="venture-modal-panel" onclick="event.stopPropagation()">
+      <button class="venture-modal-close" onclick="closeVentureModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div class="venture-modal-header">
+        <span class="venture-modal-name">${v.name}</span>
+        <span class="score-badge ${sc}">${v.score}</span>
+        <span class="stage-pill" style="background:${cfg.bg};color:${cfg.text}">
+          <span style="width:6px;height:6px;border-radius:50%;background:${cfg.dot};display:inline-block"></span>
+          ${cfg.label}
+        </span>
+      </div>
+
+      <div class="venture-modal-body">
+        <div class="venture-modal-tagline">${v.tagline}</div>
+
+        <div>
+          <div class="venture-modal-section-label">Value Proposition</div>
+          <div class="venture-modal-text">${v.valueProp || "—"}</div>
+        </div>
+
+        <div>
+          <div class="venture-modal-section-label">Target Audience</div>
+          <div class="venture-modal-audience-row">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            ${v.audience}
+          </div>
+        </div>
+
+        <div>
+          <div class="venture-modal-section-label">Revenue Metrics</div>
+          <div class="venture-modal-metrics">
+            <div class="venture-modal-metric">
+              <div class="venture-modal-metric-label">Total Revenue</div>
+              <div class="venture-modal-metric-value">${formatCurrency(v.totalRevenue)}</div>
+            </div>
+            <div class="venture-modal-metric">
+              <div class="venture-modal-metric-label">Monthly Revenue</div>
+              <div class="venture-modal-metric-value">${formatCurrency(v.monthlyRevenue)}</div>
+            </div>
+            <div class="venture-modal-metric">
+              <div class="venture-modal-metric-label">Visitors</div>
+              <div class="venture-modal-metric-value">${formatNumber(v.visitors)}</div>
+            </div>
+            <div class="venture-modal-metric">
+              <div class="venture-modal-metric-label">Conversions</div>
+              <div class="venture-modal-metric-value">${formatNumber(v.conversions)}</div>
+            </div>
+          </div>
+          <div class="venture-modal-conversion">Conversion rate: ${conversionRate}</div>
+        </div>
+
+        <div class="venture-modal-links">
+          ${siteBtn}
+          ${repoBtn}
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(backdrop);
+  document.body.classList.add("modal-open");
+
+  // Trigger transition
+  requestAnimationFrame(() => {
+    backdrop.classList.add("visible");
+  });
+
+  // Close on backdrop click
+  backdrop.addEventListener("click", closeVentureModal);
+}
+
+function closeVentureModal() {
+  const backdrop = document.getElementById("venture-modal");
+  if (!backdrop) return;
+
+  backdrop.classList.remove("visible");
+  backdrop.addEventListener("transitionend", () => {
+    backdrop.remove();
+    document.body.classList.remove("modal-open");
+  }, { once: true });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeVentureModal();
+});
 
 /* ── NAV / VIEW SWITCHING ─────────────────────────────────────── */
 
