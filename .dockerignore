@@ -1,0 +1,8 @@
+# flyctl launch added from .gitignore
+**/bin
+**/*.exe
+**/.env
+**/*.key
+**/*.pem
+**/service-account*.json
+fly.toml

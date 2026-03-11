@@ -1,0 +1,6 @@
+bin/
+*.exe
+.env
+*.key
+*.pem
+service-account*.json

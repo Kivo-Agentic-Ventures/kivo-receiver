@@ -1,0 +1,44 @@
+company:
+  name: "Kivo Ventures"
+  email: "ideas@withkivo.com"
+  domain: "withkivo.com"
+
+gcp:
+  project_id: "kivo-agentic-business"
+  service_account_path: "${HOME}/.config/kivo/service-account.json"
+  pubsub_topic: "gmail-ideas-push"
+  pubsub_subscription: "gmail-ideas-push-sub"
+
+gmail:
+  target_email: "ideas@withkivo.com"
+  # History ID is updated at runtime after each poll
+  last_history_id: "1061"
+
+anthropic:
+  # Reads from ANTHROPIC_API_KEY env var
+  triage_model: "claude-haiku-4-5-20251001"
+  research_model: "claude-sonnet-4-6"
+  build_model: "claude-sonnet-4-6"
+
+triage:
+  # Minimum score (0-100) to trigger venture pipeline
+  score_threshold: 50
+  # Auto-approve ventures above this score (skip human approval)
+  auto_approve_threshold: 85
+
+deploy:
+  # vercel or cloudflare
+  platform: "vercel"
+  vercel_token: "${VERCEL_TOKEN}"
+  github_token: "${GITHUB_TOKEN}"
+  github_org: "Kivo-Agentic-Ventures"
+
+notion:
+  # Set via NOTION_API_KEY env var
+  ideas_database_id: "f870e6b515754d6a88636f4896934fc6"
+  ventures_database_id: "33e4c95474634b88873d3e01630240de"
+
+server:
+  port: 8080
+  # Shared secret for Pub/Sub push authentication
+  pubsub_verify_token: "${PUBSUB_VERIFY_TOKEN}"
